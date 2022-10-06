@@ -7,3 +7,9 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:80"
+
+  wordpress:
+    build:
+      context: ./requirements/wordpress
+      dockerfile: Dockerfile
+
