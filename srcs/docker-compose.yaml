@@ -7,6 +7,10 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:80"
+    depends_on:
+      - wordpress
+    volumes:
+      - ./requirements/nginx/tools/kkaneko.42.fr:/var/www/
 
   wordpress:
     build:
@@ -15,5 +19,8 @@ services:
     ports:
       - "9000:9000"
       - "3306:3306"
+    volumes:
+      - ./requirements/wordpress/src:/var/www/
     tty: true
+    stdin_open: true
 
