@@ -18,9 +18,20 @@ services:
       dockerfile: Dockerfile
     ports:
       - "9000:9000"
-      - "3306:3306"
     volumes:
-      - ./requirements/wordpress/src:/var/www/
+      - ./requirements/wordpress/src:/var/www/src
     tty: true
     stdin_open: true
 
+  mariadb:
+    build:
+      context: ./requirements/mariadb
+      dockerfile: Dockerfile
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    tty: true
+    stdin_open: true
