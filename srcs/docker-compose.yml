@@ -4,3 +4,6 @@ services:
     build:
       context: ./requirements/nginx
       dockerfile: Dockerfile
+    ports:
+      - 8081:443
+    env_file: .env
