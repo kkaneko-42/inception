@@ -1,2 +1,2 @@
 .env
-./srcs/requirements/nginx/tools/certs/
+srcs/requirements/nginx/tools/certs/
