@@ -6,6 +6,15 @@ services:
       dockerfile: Dockerfile
       args:
         - CERTS=${CERTS}
+    volumes:
+      - ./requirements/tools/htdocs:/var/www/kkaneko.42.fr/htdocs
     ports:
       - 443:443
     env_file: .env
+
+  wordpress:
+    build:
+      context: ./requirements/wordpress
+      dockerfile: Dockerfile
+    volumes:
+      - ./requirements/tools/htdocs:/var/www/kkaneko.42.fr/htdocs
