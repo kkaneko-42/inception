@@ -10,7 +10,8 @@ services:
       - ./requirements/tools/htdocs:/var/www/kkaneko.42.fr/htdocs
     ports:
       - 443:443
-    env_file: .env
+    environment:
+      - DOMAIN_NAME=${DOMAIN_NAME}
 
   wordpress:
     build:
@@ -18,3 +19,12 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./requirements/tools/htdocs:/var/www/kkaneko.42.fr/htdocs
+
+  mariadb:
+    build:
+      context: ./requirements/mariadb
+      dockerfile: Dockerfile
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
