@@ -1,6 +1,8 @@
 version: '3'
 services:
   nginx:
+    container_name: nginx
+    image: nginx
     build:
       context: ./requirements/nginx
       dockerfile: Dockerfile
@@ -12,15 +14,24 @@ services:
       - 443:443
     environment:
       - DOMAIN_NAME=${DOMAIN_NAME}
+    networks:
+      - frontend
 
   wordpress:
+    container_name: wordpress
+    image: wordpress
     build:
       context: ./requirements/wordpress
       dockerfile: Dockerfile
     volumes:
       - ./requirements/tools/htdocs:/var/www/kkaneko.42.fr/htdocs
+    networks:
+      - frontend
+      - backend
 
   mariadb:
+    container_name: mariadb
+    image: mariadb
     build:
       context: ./requirements/mariadb
       dockerfile: Dockerfile
@@ -28,3 +39,13 @@ services:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    networks:
+      - backend
+
+networks:
+  frontend:
+    name: frontend
+    driver: bridge
+  backend:
+    name: backend
+    driver: bridge
