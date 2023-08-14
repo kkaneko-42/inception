@@ -9,7 +9,7 @@ services:
       args:
         - CERTS=${CERTS}
     volumes:
-      - ./requirements/tools/htdocs:/var/www/kkaneko.42.fr/htdocs
+      - ./requirements/tools/htdocs:/var/www/htdocs
     ports:
       - 443:443
     environment:
@@ -24,7 +24,10 @@ services:
       context: ./requirements/wordpress
       dockerfile: Dockerfile
     volumes:
-      - ./requirements/tools/htdocs:/var/www/kkaneko.42.fr/htdocs
+      - ./requirements/tools/htdocs:/var/www/htdocs
+    environment:
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     networks:
       - frontend
       - backend
