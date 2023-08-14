@@ -1,5 +1,10 @@
 #!/bin/sh
 
+# if first launch
+chown -R mysql:mysql /var/lib/mysql
+mariadb_install_db --skip-test-db
+# endif
+
 # Start config server, and get its PID
 /usr/sbin/mariadbd & MARIADB_PID=$!
 

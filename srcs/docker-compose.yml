@@ -35,6 +35,8 @@ services:
     build:
       context: ./requirements/mariadb
       dockerfile: Dockerfile
+    volumes:
+      - ./requirements/tools/db:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_USER=${MYSQL_USER}
