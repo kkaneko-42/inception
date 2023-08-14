@@ -1,6 +1,6 @@
 FROM debian:11
 EXPOSE 9000
-RUN apt -o Acquire::Check-Valid-Until=false -o Acquire::Check-Date=false update && apt install -y \
+RUN apt update && apt install -y \
         php7.4-fpm \
         php7.4-mysql \
         wget \
