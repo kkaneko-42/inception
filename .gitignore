@@ -1,3 +1,5 @@
 .env
 srcs/requirements/nginx/tools/certs/
-srcs/requirements/tools/
+srcs/requirements/tools/htdocs/hello_world.html
+srcs/requirements/tools/htdocs/db_check.php
+srcs/requirements/tools/htdocs/info.php
