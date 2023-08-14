@@ -2,7 +2,7 @@
 
 # if first launch
 chown -R mysql:mysql /var/lib/mysql
-mariadb_install_db --skip-test-db
+mariadb-install-db --skip-test-db
 # endif
 
 # Start config server, and get its PID
@@ -22,11 +22,14 @@ done
 #fi
 
 # if first launch
+# Create db for wordpress
+mariadb -e "CREATE DATABASE IF NOT EXISTS wordpress;"
 # Create new root
 mariadb -e "CREATE USER 'root'@'wordpress.backend' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD';"
 mariadb -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'wordpress.backend';"
 # Create new user
 mariadb -e "CREATE USER '$MYSQL_USER'@'wordpress.backend' IDENTIFIED BY '$MYSQL_PASSWORD';"
+mariadb -e "GRANT ALL ON wordpress.* TO '$MYSQL_USER'@'wordpress.backend';"
 # Change root password
 mariadb -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD';"
 # endif
