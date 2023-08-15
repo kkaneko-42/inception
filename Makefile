@@ -2,7 +2,7 @@ COMPOSE_DIR	:= ./srcs
 include ${COMPOSE_DIR}/.env
 
 all:
-	if ! grep ${DOMAIN_NAME} /etc/hosts; then echo "127.0.0.1    ${DOMAIN_NAME}" >> /etc/hosts; fi
+	${COMPOSE_DIR}/requirements/tools/setup.sh ${COMPOSE_DIR}
 	cd ${COMPOSE_DIR} && docker-compose up -d --build
 
 clean:
