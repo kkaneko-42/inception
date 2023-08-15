@@ -16,7 +16,7 @@ if [ ! -d /var/lib/mysql/mysql ]; then
         sleep 1
     done
 
-    if [ $i -eq 0 ]
+    if [ $i -eq 0 ]; then
         echo "failed to start mariadb server"
         exit 1
     fi
