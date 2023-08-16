@@ -6,7 +6,7 @@ source ${ENV_DIR}/.env
 if grep ${DOMAIN_NAME} /etc/hosts; then
     echo "/etc/hosts is already configured"
 else
-    if ! echo "127.0.0.1    ${DOMAIN_NAME}" >> /etc/hosts; then
+    if ! sudo sh -c "echo '127.0.0.1    ${DOMAIN_NAME}' >> /etc/hosts"; then
         echo "/etc/hosts configuration failed. 'sudo' maybe needed."
         exit 1
     fi

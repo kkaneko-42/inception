@@ -2,7 +2,7 @@ COMPOSE_DIR	:= ./srcs
 include ${COMPOSE_DIR}/.env
 
 all:
-	sudo ${COMPOSE_DIR}/requirements/tools/setup.sh ${COMPOSE_DIR} && \
+	${COMPOSE_DIR}/requirements/tools/setup.sh ${COMPOSE_DIR} && \
 	cd ${COMPOSE_DIR} && docker-compose up -d
 
 clean:
@@ -10,5 +10,6 @@ clean:
 
 fclean:
 	cd ${COMPOSE_DIR} && docker-compose down
+	docker rmi nginx wordpress mariadb
 
 .PHONY: all clean fclean
