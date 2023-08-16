@@ -1,8 +1,12 @@
 #!/bin/sh
 
+# file owner check
+if ! ls -l /var/lib/mysql | grep mysql; then
+    chown -R mysql:mysql /var/lib/mysql
+fi
+
 # if first launch
 if [ ! -d /var/lib/mysql/mysql ]; then
-    chown -R mysql:mysql /var/lib/mysql
     mariadb-install-db --skip-test-db
 
     # Start config server, and get its PID
