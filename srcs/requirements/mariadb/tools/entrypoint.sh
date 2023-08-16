@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # file owner check
-if ! ls -l /var/lib/mysql | grep mysql; then
+if ! ls -l /var/lib/mysql | awk '{print $3}' | grep mysql; then
     chown -R mysql:mysql /var/lib/mysql
 fi
 
