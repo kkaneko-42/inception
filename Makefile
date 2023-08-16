@@ -2,7 +2,7 @@ COMPOSE_DIR	:= ./srcs
 include ${COMPOSE_DIR}/.env
 
 all:
-	${COMPOSE_DIR}/requirements/tools/setup.sh ${COMPOSE_DIR}
+	sudo ${COMPOSE_DIR}/requirements/tools/setup.sh ${COMPOSE_DIR} && \
 	cd ${COMPOSE_DIR} && docker-compose up -d
 
 clean:

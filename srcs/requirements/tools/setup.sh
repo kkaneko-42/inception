@@ -6,7 +6,10 @@ source ${ENV_DIR}/.env
 if grep ${DOMAIN_NAME} /etc/hosts; then
     echo "/etc/hosts is already configured"
 else
-    echo "127.0.0.1    ${DOMAIN_NAME}" >> /etc/hosts
+    if ! echo "127.0.0.1    ${DOMAIN_NAME}" >> /etc/hosts; then
+        echo "/etc/hosts configuration failed. 'sudo' maybe needed."
+        exit 1
+    fi
 fi
 
 CERTS_DIR=${ENV_DIR}/requirements/nginx/${CERTS}
