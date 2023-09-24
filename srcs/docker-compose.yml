@@ -10,7 +10,9 @@ services:
     image: nginx
     container_name: nginx
     volumes:
-      - ./requirements/tools/htdocs:/var/www/htdocs
+      - type: volume
+        source: htdocs_volume
+        target: /var/www/htdocs
     environment:
       - DOMAIN_NAME=${DOMAIN_NAME}
     restart: always
@@ -27,7 +29,9 @@ services:
     image: wordpress
     container_name: wordpress
     volumes:
-      - ./requirements/tools/htdocs:/var/www/htdocs
+      - type: volume
+        source: htdocs_volume
+        target: /var/www/htdocs
     environment:
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
@@ -44,7 +48,9 @@ services:
     image: mariadb
     container_name: mariadb
     volumes:
-      - ./requirements/tools/db:/var/lib/mysql
+      - type: volume
+        source: db_volume
+        target: /var/lib/mysql/
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_USER=${MYSQL_USER}
@@ -52,6 +58,20 @@ services:
     restart: always
     networks:
       - backend
+
+volumes:
+  htdocs_volume:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${VOLUME_DIR}/htdocs
+  db_volume:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${VOLUME_DIR}/db
 
 networks:
   frontend:

@@ -7,7 +7,7 @@ if grep ${DOMAIN_NAME} /etc/hosts; then
     echo "/etc/hosts is already configured"
 else
     if ! sudo sh -c "echo '127.0.0.1    ${DOMAIN_NAME}' >> /etc/hosts"; then
-        echo "/etc/hosts configuration failed. 'sudo' maybe needed."
+        echo "/etc/hosts configuration failed"
         exit 1
     fi
 fi
@@ -25,4 +25,12 @@ else
     openssl x509 -days 3650 -req -sha256 -signkey ${CERTS_DIR}/server.key \
         < ${CERTS_DIR}/server.csr \
         > ${CERTS_DIR}/server.crt
+fi
+
+if [ -d ${VOLUME_DIR} ]; then
+    echo "volume is already configured"
+else
+    sudo mkdir -p ${VOLUME_DIR}
+    sudo cp -r ${ENV_DIR}/requirements/tools/db ${VOLUME_DIR}
+    sudo cp -r ${ENV_DIR}/requirements/tools/htdocs ${VOLUME_DIR}
 fi
